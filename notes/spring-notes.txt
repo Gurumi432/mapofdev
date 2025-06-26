@@ -1,0 +1,25 @@
+25-6-25
+프레임워크 : 소프트웨어 개발을 돕는 도구 (클래스, 함수들의 집합)
+
+FastAPI (Python) vs Spring (Java)
+전자는 빠른 구축이 장점, 규모가 커질수록 높은 자유도로 인해 구조가 엉망이 되기 쉽다는게 단점
+후자는 구조화로 대규모 서비스도 안정적인 운영이 쉽다는 것이 장점, 구축이 오래걸린다는 단점
+향후 대규모 서비스로의 확장을 대비해서 후자를 선택.
+
+linux 환경 실행법 (C:\Users\idonk\Downloads\mapofdev)
+./gradlew bootRun
+
+window 환경 실행법 (C:\Users\idonk\Downloads\mapofdev)
+gradlew.bat bootRun
+
+25-6-26
+src/main/java
+👉 자바 소스 파일들이 들어가는 기본 위치입니다.
+
+dev/mapofdev/mapofdev
+👉 당신이 설정한 패키지 이름에 따라 자동 생성된 폴더입니다.
+(이건 package dev.mapofdev.mapofdev; 때문에 이렇게 된 거예요)
+
+MapofdevApplication.java
+👉 Spring Boot 프로젝트의 메인 클래스입니다.
+이 파일 안에서 프로젝트 실행이 시작돼요.
