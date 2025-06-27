@@ -14,7 +14,7 @@ public class SecurityConfig {
 //스프링 컨테이너는 애플리케이션에서 사용하는 객체(Bean)를 생성하고, 조립하고, 관리하는 중심 컴포넌트
 //Bean은 스프링 컨테이너가 생성했거나 관리하는 객체
 // HTTP 보안 정책을 정의하는 메서드. 최종적으로 SecurityFilterChain 객체를 반환함
-public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception { // HTTP 보안 정책을 정의하는 메서드
     http.csrf(csrf -> csrf.disable())   // CSRF 보호 기능을 비활성화함 (개발 시에는 편의상 꺼두지만, 운영에서는 보통 켜둠)
     // CSRF 보호는 사용자가 원하지도 않았는데, 로그인된 상태를 악용해서 악의적인 요청을 강제로 보내는 공격을 막는 기능
             .authorizeHttpRequests(authz -> authz   // HTTP 요청에 대한 인가(접근 권한) 설정을 시작
