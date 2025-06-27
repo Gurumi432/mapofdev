@@ -1,8 +1,10 @@
 package dev.mapofdev.controller;
 
 import org.springframework.web.bind.annotation.*; // REST API용 어노테이션들 (예: @GetMapping)
+//REST란? REpresentational State Transfer, 웹에서 리소스(자원) 를 URL로 표현하고, HTTP 메서드(GET, POST 등)를 써서 이 자원을 조회·생성·수정·삭제하는 방식
 
 @RestController        // 이 클래스가 REST 요청을 처리하는 컨트롤러임을 나타냄
+
 public class HelloController {
 
 // ────────────── 컨트롤러 메서드 (REST API) ──────────────
