@@ -16,6 +16,28 @@
 - **직군별 통계 데이터**  
 를 기반으로, 개발자 커리어를 **정량적으로 분석하고 시각적으로 설계**해줍니다.
 
+[🧠 Software Requirements Specification 🔍](https://www.notion.so/SRS-221bf97a4caf81fc98a7e02148c6d5cb)
+
+[📘 Use Case Specification 👤](https://www.notion.so/Use-Case-Specification-221bf97a4caf813db155f6fafbd049ba?pvs=21)
+
+[📊 Use Case Diagram](https://www.notion.so/Use-Case-Diagram-221bf97a4caf81d39d7cfbc42260a000?pvs=21)
+
+[🔌 API 📡](https://www.notion.so/API-221bf97a4caf818f992fcedfc2933985?pvs=21)
+
+[🗄️ DB 🧱](https://www.notion.so/221bf97a4caf818994f1c8517dd56f43?pvs=21)
+
+[🧩 Architecture](https://www.notion.so/Architecture-221bf97a4caf812885c5f551301a17a9?pvs=21)
+
+[📦 Class Diagram](https://www.notion.so/Class-Diagram-221bf97a4caf818795adc660002d8725?pvs=21)
+
+[🔄 Sequence Diagram](https://www.notion.so/Sequence-Diagram-221bf97a4caf810680bedf6e31f4aee7?pvs=21)
+
+[🧪 Test Case](https://www.notion.so/Test-Case-221bf97a4caf81abb383f654ceb1bf4d?pvs=21)
+
+[🧭 UX **Scenario**](https://www.notion.so/UX-Scenario-221bf97a4caf818cba59e4781dd43c8c?pvs=21)
+
+[📈 Data Visualization](https://www.notion.so/Data-Visualization-221bf97a4caf812d8523ed21dda1bab5?pvs=21)
+
 ---
 
 ## 🎯 프로젝트 목표
@@ -193,4 +215,4 @@ def vectorize(profile):
 앞으로도 현실 문제를 데이터와 기술로 해결하는 백엔드 개발자가 되겠습니다.
 감사합니다.
 
-```
+---
