@@ -1,19 +1,4 @@
-/*
- * ================================================================
- * 📁 mapofdev 프로젝트 Gradle 빌드 스크립트
- * ================================================================
- * 
- * 이 파일은 프로젝트를 빌드하고 의존성을 관리하는 설정 파일입니다.
- * Gradle은 Java 프로젝트를 컴파일하고 테스트하고 배포하는 빌드 도구입니다.
- * Gradle은 DSL, 도메인 설정 언어, 특정 목적을 위해 설계된 작고 제한된 언어 (일반 고급 프로그래밍 언어는 범용성이 큼)
- * (DSL 언어 예 : HTML, SQL)
- *
- * 🎯 이 파일을 통해 배우는 것:
- * - Spring Boot 프로젝트 구조
- * - 의존성 관리 (라이브러리 추가)
- * - 플러그인 사용법
- * - 프로젝트 설정
- */
+/* (최하단에 학습 기록 기재)
 
 // ================================================================
 // 🔌 플러그인 설정 (Gradle에게 어떤 기능을 사용할지 알려주는 영역)
@@ -221,11 +206,16 @@ tasks.register('showDependencies') {
 
 /*
  * ================================================================
- * 📚 학습 가이드
+ * 📚 학습 기록
  * ================================================================
- * 
+
+ * Gradle은 프로젝트를 빌드하고 의존성을 관리하는 설정 파일
+ * Gradle은 Java 프로젝트를 컴파일하고 테스트하고 배포하는 빌드 도구
+ * Gradle은 DSL, 도메인 설정 언어, 특정 목적을 위해 설계된 작고 제한된 언어 (일반 고급 프로그래밍 언어는 범용성이 큼)
+ * (DSL 언어 예 : HTML, SQL)
+
  * 🎯 Gradle 명령어 (터미널에서 실행):
- * 
+ *
  * ./gradlew build          # 프로젝트 빌드 (컴파일 + 테스트)
  * ./gradlew bootRun        # 스프링 부트 애플리케이션 실행
  * ./gradlew test           # 테스트 실행
@@ -255,10 +245,34 @@ tasks.register('showDependencies') {
  * repositories { }     # 라이브러리 저장소
  * dependencies { }     # 사용할 라이브러리들
  * tasks { }           # 사용자 정의 작업들
- * 
- * 💡 다음 단계:
- * 1. 이 파일을 프로젝트 루트에 저장
- * 2. 터미널에서 ./gradlew build 실행
- * 3. src/main/java/dev/mapofdev 폴더에 자바 클래스 생성
- * 4. application.yml 파일로 설정 관리
- */
+ *
+ * 	프로젝트/
+	├── build.gradle        # 빌드 스크립트 (Gradle 언어)
+	├── settings.gradle     # 프로젝트 설정
+	├── gradle.properties   # 속성 파일
+	├── gradlew            # Gradle Wrapper (Unix)
+	├── gradlew.bat        # Gradle Wrapper (Windows)
+	└── gradle/
+		└── wrapper/
+			├── gradle-wrapper.jar
+			└── gradle-wrapper.properties
+
+
+
+	#반복문 문법
+	리스트.each { 요소 ->
+    // 요소를 사용한 작업
+}
+
+	#task 문법
+	task hello {
+    doLast {
+        println 'Hello, Gradle!'
+    }
+}
+
+task hello: 태스크 이름은 hello
+doLast {}: 이 태스크가 실행될 때 마지막으로 실행될 블록
+출력: gradle hello 입력 시 콘솔에 "Hello, Gradle!" 출력
+
+*/
