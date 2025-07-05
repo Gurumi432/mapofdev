@@ -1,32 +1,39 @@
-package dev.mapofdev.config; // 이 클래스가 위치한 패키지 경로 (스프링이 자동으로 인식하려면 메인 패키지 하위여야 함)
+package dev.mapofdev.config;
 
-import org.springframework.context.annotation.Bean; // @Bean 어노테이션을 쓰기 위해 필요 (스프링 컨테이너에 객체 등록용)
-import org.springframework.context.annotation.Configuration; // 이 클래스가 설정 클래스임을 나타냄
-import org.springframework.security.config.annotation.web.builders.HttpSecurity; // 보안 설정을 구성할 때 사용되는 빌더 클래스
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity; // Spring Security를 활성화하는 어노테이션
-import org.springframework.security.web.SecurityFilterChain; // 시큐리티 필터 체인을 직접 구성할 때 사용하는 클래스
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration // 설정
-@EnableWebSecurity // 스프링 보안
+@Configuration // 이 클래스가 설정 클래스임을 명시
+@EnableWebSecurity // Spring Security를 활성화함
 public class SecurityConfig {
 
-  @Bean //@Bean은 개발자가 직접 정의한 메서드의 리턴값을, 스프링 컨테이너의 Bean으로 등록
-//스프링 컨테이너는 애플리케이션에서 사용하는 객체(Bean)를 생성하고, 조립하고, 관리하는 중심 컴포넌트
-//Bean은 스프링 컨테이너가 생성했거나 관리하는 객체
-// HTTP 보안 정책을 정의하는 메서드. 최종적으로 SecurityFilterChain 객체를 반환함
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception { // HTTP 보안 정책을 정의하는 메서드
-    http.csrf(csrf -> csrf.disable())   // CSRF 보호 기능을 비활성화함 (개발 시에는 편의상 꺼두지만, 운영에서는 보통 켜둠)
-            // CSRF 보호는 사용자가 원하지도 않았는데, 로그인된 상태를 악용해서 악의적인 요청을 강제로 보내는 공격을 막는 기능
-            .authorizeHttpRequests(authz -> authz   // HTTP 요청에 대한 인가(접근 권한) 설정을 시작
-                    .anyRequest()                           // 모든 요청에 대해 (개발 단계이므로 전체 허용으로 변경)
-                    .permitAll()                            // 인증 여부와 상관없이 누구나 접근 허용 (로그인 필요 없음)
-            )
-            // ✅ Spring Security 6.x 최신 방식으로 H2 콘솔용 헤더 설정
-            .headers(headers ->
-                    headers.frameOptions(frameOptions -> frameOptions.sameOrigin())
-            );
+  /*
+   Spring 서버는 모든 HTTP 요청에 대해, 클라이언트가 로그인 여부와 관계없이
+   자유롭게 접근할 수 있도록 허용하며, CSRF 보호 기능은 비활성화하고,
+   H2 콘솔을 위한 frameOptions 헤더 설정을 sameOrigin으로 지정하는 보안 정책을 적용한다.
+   (frameOptions: 웹페이지가 <iframe>으로 로드될 수 있는지 제어하는 보안 헤더다. sameOrigin: 현재 페이지)
 
-    return http.build(); // 설정한 보안 정책을 바탕으로 SecurityFilterChain 객체를 생성하여 반환
+   또한, 이 보안 정책을 기반으로 SecurityFilterChain 객체를 생성해 Spring
+   컨테이너에 등록하여, 실행 시 이 설정이 자동으로 반영되도록 구성한다.
+  */
+
+  @Bean // 이 메서드의 반환 객체를 스프링 빈으로 등록함
+  //빈 객체(Bean): Spring이 직접 만들어서 관리하는 객체를 말한다.
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http.csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화 (개발 단계에서는 편의상 끔)
+      // CSRF: 로그인된 사용자의 권한을 훔쳐서 원하지 않는 요청을 강제로 보내는 공격을 막기 위한 보안 기능이다.
+
+      .authorizeHttpRequests(authz -> authz
+        .anyRequest() // 모든 요청에 대해
+        .permitAll()  // 인증 없이 허용
+      )
+      .headers(headers ->
+        headers.frameOptions(frameOptions -> frameOptions.sameOrigin()) // H2 콘솔 접근 허용
+      );
+
+    return http.build(); // 설정을 적용한 필터 체인 객체 생성
   }
-
 }
