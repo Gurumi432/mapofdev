@@ -1,0 +1,19 @@
+# 이 파일을 프로젝트 최상위 설정으로 지정합니다.
+# root = true를 만나면 더 이상 상위 디렉터리의 설정을 탐색하지 않습니다.
+root = true
+
+[*]
+# 탭 대신 스페이스 사용: 팀원 에디터별 보이는 너비 차이 방지
+indent_style = space
+
+# 들여쓰기 너비 2칸: 웹 개발 커뮤니티 표준에 맞추어 코드 가독성 최적화
+indent_size = 2
+
+# 줄바꿈을 LF로 통일: OS 간 충돌 및 Git diff 잡음 제거
+end_of_line = lf
+
+# 라인 끝 공백 자동 제거: Git diff 가독성 향상
+trim_trailing_whitespace = true
+
+# 파일 끝에 항상 빈 줄 삽입: POSIX 표준 준수 및 일부 도구 오류 예방
+insert_final_newline = true
