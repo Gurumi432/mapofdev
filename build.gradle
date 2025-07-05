@@ -1,4 +1,4 @@
-/* (최하단에 학습 기록 기재)
+// (최하단에 학습 기록 기재)
 
 // ================================================================
 // 🔌 플러그인 설정 (Gradle에게 어떤 기능을 사용할지 알려주는 영역)
@@ -34,10 +34,12 @@ java {
 // 🔧 특수 설정 (Lombok과 같은 도구를 위한 설정)
 // ================================================================
 configurations {
-	compileOnly { 
+	compileOnly {
 		extendsFrom annotationProcessor 		// Lombok을 어노테이션 프로세서로 처리하도록 설정
-		// 이렇게 하면 @Getter, @Setter 등 같은 어노테이션을 클래스에 붙이고 컴파일 시,
-		// 자동으로 해당 클래스 내부에 메서드를 붙임
+        //	의존성 : annotationProcessor 'org.projectlombok:lombok'     // 어노테이션 처리
+		// 롬복은 @Getter, @Setter 등 같은 어노테이션을 클래스에 붙이고 컴파일 시, 자동으로 해당 클래스 내부에 그에 해당하는 메서드를 붙임
+        // 그래서 롬복은 코드를 짧게 만드는데에 기여함
+
 	}
 }
 
@@ -45,23 +47,26 @@ configurations {
 // 📦 저장소 설정 (라이브러리를 어디서 다운로드할지)
 // ================================================================
 repositories {
-	// Maven Central 저장소 (가장 큰 Java 라이브러리 저장소)
-	mavenCentral()
+	mavenCentral() // Maven Central 저장소 (가장 큰 Java 라이브러리 저장소)
 }
 
 // ================================================================
-// 📌 버전 관리 (중요한 라이브러리 버전을 한 곳에서 관리)
+// 📌 라이브러리 버전 변수 모음
+// 이곳에서 외부 라이브러리의 버전을 한 번에 정의해두고,
+// 아래 dependencies 블록에서 불러다 사용함.
+// 나중에 버전 업그레이드할 때 여기 숫자만 바꾸면 됨!
 // ================================================================
 ext {
-	// JWT 토큰 라이브러리 버전 (로그인 토큰 생성용)
-	set('jjwtVersion', '0.12.3')
+    // 🔐 JWT: 로그인할 때 토큰 만들어주는 라이브러리
+    set('jjwtVersion', '0.12.3')
 
-	// Jsoup 라이브러리 버전 (웹 크롤링용)
-	set('jsoupVersion', '1.17.2')
+    // 🌐 Jsoup: HTML 문서에서 데이터 추출할 때 사용하는 웹 크롤링 도구
+    set('jsoupVersion', '1.17.2')
 
-	// SpringDoc 라이브러리 버전 (API 문서 자동 생성용)
-	set('springDocVersion', '2.3.0')
+    // 📄 SpringDoc: API 문서를 자동으로 만들어주는 도구 (Swagger랑 비슷)
+    set('springDocVersion', '2.3.0')
 }
+
 
 // ================================================================
 // 📚 의존성 설정 (프로젝트에서 사용할 라이브러리들)
@@ -222,25 +227,25 @@ tasks.register('showDependencies') {
  * ./gradlew clean          # 빌드 결과물 삭제
  * ./gradlew projectInfo    # 프로젝트 정보 출력 (우리가 만든 명령어)
  * ./gradlew showDependencies  # 의존성 정보 출력 (우리가 만든 명령어)
- * 
+ *
  * 🔍 의존성 타입 설명:
- * 
+ *
  * implementation    # 컴파일 + 런타임에 필요 (가장 일반적)
  * compileOnly       # 컴파일 시에만 필요 (Lombok 등)
  * runtimeOnly       # 런타임에만 필요 (DB 드라이버 등)
  * testImplementation # 테스트 시에만 필요
  * developmentOnly   # 개발 시에만 필요 (DevTools 등)
  * annotationProcessor # 어노테이션 처리 (Lombok 등)
- * 
+ *
  * 🎨 주요 Spring Boot Starter 설명:
- * 
+ *
  * spring-boot-starter-web       # 웹 애플리케이션 (Tomcat + Spring MVC)
  * spring-boot-starter-data-jpa  # JPA (Hibernate + Spring Data JPA)
  * spring-boot-starter-security  # Spring Security
  * spring-boot-starter-test      # 테스트 도구들 (JUnit, Mockito 등)
- * 
+ *
  * 🏗️ 빌드 파일 구조:
- * 
+ *
  * plugins { }          # 사용할 플러그인들
  * repositories { }     # 라이브러리 저장소
  * dependencies { }     # 사용할 라이브러리들

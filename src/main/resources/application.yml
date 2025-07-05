@@ -1,0 +1,48 @@
+# ✅ 서버 관련 설정 (앱이 어떻게 뜨는지)
+server:
+  port: 8080  # 웹 브라우저에서 localhost:8080 으로 접속함
+  error:
+    include-message: always  # 오류가 났을 때, 에러 메시지를 화면에 보여줌 (디버깅용)
+
+# ✅ 스프링 프레임워크 설정
+spring:
+  application:
+    name: mapofdev  # 프로젝트 이름. 로그나 에러 메시지에 이 이름이 뜸
+
+  # ✅ H2 웹 콘솔 설정 (브라우저로 DB 확인하는 화면)
+  h2:
+    console:
+      enabled: true  # 브라우저에서 DB 보는 기능 켜기
+      path: /h2-console  # 접속 주소: localhost:8080/h2-console
+      settings:
+        web-allow-others: true  # 다른 컴퓨터에서도 접속 허용 (개발 환경에서만)
+
+  # ✅ DB 연결 설정 (어떤 DB에 연결할지)
+  datasource:
+    url: jdbc:h2:mem:mapofdev  # 메모리 DB 사용 (컴퓨터 껐다 키면 DB 날아감)
+    driver-class-name: org.h2.Driver  # DB 연결을 위한 드라이버 이름
+    username: sa  # DB 사용자명 (기본값)
+    password:  # 비번 없음
+    hikari:  # DB 커넥션 풀 (DB 연결 효율적으로 관리함)
+      connection-timeout: 20000  # DB 연결 기다리는 최대 시간 (20초)
+      maximum-pool-size: 10  # 동시에 10개까지 연결 가능
+
+  # ✅ JPA 설정 (DB 테이블 자동 생성/SQL 보기 등)
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect  # 어떤 DB 쓰는지 알려줌 (H2용 설정)
+    hibernate:
+      ddl-auto: create-drop  # 서버 시작할 때 테이블을 새로 만들고, 종료 시 삭제함 (초기 개발에만)
+    properties:
+      hibernate:
+        format_sql: true  # SQL 문 예쁘게 보기 좋게 출력
+        show_sql: true  # 실행되는 SQL을 콘솔에 보여줌
+        use_sql_comments: true  # 어떤 쿼리인지 설명도 같이 보여줌
+    open-in-view: false  # 성능 문제 방지용 설정. 일반적으로 false 권장
+
+# ✅ 로그 설정 (무슨 일이 일어나는지 콘솔에 보여주는 수준 조절)
+logging:
+  level:
+    dev.mapofdev: DEBUG  # 내 코드(debug 레벨까지 다 보여줌)
+    org.springframework.web: DEBUG  # 스프링 MVC 웹 요청 로그 출력
+    org.hibernate.SQL: DEBUG  # 실행된 SQL 로그 출력
+    org.hibernate.type.descriptor.sql: TRACE  # DB에 어떤 값이 들어갔는지까지 아주 자세히 출력
