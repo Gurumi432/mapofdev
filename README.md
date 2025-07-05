@@ -1,4 +1,4 @@
-# 🗺️ mapofdev  
+# 🗺️ mapofdev
 **"데이터로 커리어를 설계하다" – 당신만의 커리어 나침반**
 
 > ⚠️ 현재 상태: 상세 설계 완료, 프로토타입 개발 중
@@ -12,7 +12,7 @@
 
 ```
 git clone <https://github.com/jinnamm/mapofdev.git>
-cd "파일경로"
+cd mapofdev
 gradlew bootRun
 ```
 
@@ -611,6 +611,8 @@ mapofdev/
 
 감사합니다.
 
+- 
+
 [📂 1. Project Management](https://www.notion.so/1-Project-Management-225bf97a4caf80c29cf0d56775a935c0?pvs=21)
 
 [📂 2. Requirements](https://www.notion.so/2-Requirements-225bf97a4caf80db8feddf3e235bddb7?pvs=21)
@@ -620,3 +622,15 @@ mapofdev/
 [📂 4. Interfaces](https://www.notion.so/4-Interfaces-225bf97a4caf80489bdac8f0b37cccd6?pvs=21)
 
 [📂 5. QA & Release](https://www.notion.so/5-QA-Release-221bf97a4caf81abb383f654ceb1bf4d?pvs=21)
+
+---
+
+## 📋 개발 정보
+
+### 커밋 컨벤션
+
+- `feat:` 새로운 기능 추가
+- `fix:` 버그 수정
+- `docs:` 문서 작성/수정
+- `test:` 테스트 관련
+- `chore:` 기타 작업
