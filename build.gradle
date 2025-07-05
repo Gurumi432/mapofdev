@@ -219,14 +219,13 @@ tasks.register('showDependencies') {
  * Gradle은 DSL, 도메인 설정 언어, 특정 목적을 위해 설계된 작고 제한된 언어 (일반 고급 프로그래밍 언어는 범용성이 큼)
  * (DSL 언어 예 : HTML, SQL)
 
- * 🎯 Gradle 명령어 (터미널에서 실행):
- *
- * ./gradlew build          # 프로젝트 빌드 (컴파일 + 테스트)
- * ./gradlew bootRun        # 스프링 부트 애플리케이션 실행
- * ./gradlew test           # 테스트 실행
- * ./gradlew clean          # 빌드 결과물 삭제
- * ./gradlew projectInfo    # 프로젝트 정보 출력 (우리가 만든 명령어)
- * ./gradlew showDependencies  # 의존성 정보 출력 (우리가 만든 명령어)
+ * 🎯 Gradle 명령어 (윈도우 터미널에서 실행. 리눅스에선 앞에 ./를 부여야함):
+	gradlew build          # 프로젝트 빌드 (컴파일 + 테스트)
+	gradlew bootRun        # 스프링 부트 애플리케이션 실행
+	gradlew test           # 테스트 실행
+	gradlew clean          # 빌드 결과물 삭제
+	gradlew projectInfo    # 프로젝트 정보 출력 (우리가 만든 명령어)
+	gradlew showDependencies  # 의존성 정보 출력 (우리가 만든 명령어)
  *
  * 🔍 의존성 타입 설명:
  *
