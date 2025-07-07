@@ -1,0 +1,486 @@
+[
+  {
+    "TC_ID": "TC001",
+    "기능분류": "공개API",
+    "테스트명": "트렌드조회_정상",
+    "사전조건": "서버실행",
+    "테스트단계": "GET /api/v1/trends 요청",
+    "예상결과": "200 OK HTTP 상태코드와 JSON 배열 형태의 트렌드 데이터 반환",
+    "실제결과": "404 Not Found, 리소스 없음",
+    "Pass/Fail": "FAIL",
+    "비고": "트렌드 데이터 구조: {id, name, popularity, category}",
+    "실행시간": "0.00초",
+    "타임스탬프": "2025-07-05T23:57:21.784706",
+    "응답데이터": {
+      "status_code": 404,
+      "data": {
+        "error": "요청한 리소스를 찾을 수 없습니다"
+      },
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.5",
+        "Date": "Sat, 05 Jul 2025 15:57:21 GMT",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "url": "http://localhost:3000/api/v1/trends 요청",
+      "method": "GET"
+    }
+  },
+  {
+    "TC_ID": "TC003",
+    "기능분류": "공개API",
+    "테스트명": "인기스킬조회_정상",
+    "사전조건": "서버실행",
+    "테스트단계": "GET /api/v1/skills/popular 요청",
+    "예상결과": "200 OK와 인기 스킬 목록 JSON 배열 반환",
+    "실제결과": "404 Not Found, 리소스 없음",
+    "Pass/Fail": "FAIL",
+    "비고": "스킬 데이터 구조: {skill_name, demand_score, growth_rate}",
+    "실행시간": "0.00초",
+    "타임스탬프": "2025-07-05T23:57:22.286787",
+    "응답데이터": {
+      "status_code": 404,
+      "data": {
+        "error": "요청한 리소스를 찾을 수 없습니다"
+      },
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.5",
+        "Date": "Sat, 05 Jul 2025 15:57:22 GMT",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "url": "http://localhost:3000/api/v1/skills/popular 요청",
+      "method": "GET"
+    }
+  },
+  {
+    "TC_ID": "TC004",
+    "기능분류": "공개API",
+    "테스트명": "직군카테고리조회_정상",
+    "사전조건": "서버실행",
+    "테스트단계": "GET /api/v1/jobs/categories 요청",
+    "예상결과": "200 OK와 직군 카테고리 목록 JSON 배열 반환",
+    "실제결과": "404 Not Found, 리소스 없음",
+    "Pass/Fail": "FAIL",
+    "비고": "카테고리 구조: {category_id, category_name, job_count}",
+    "실행시간": "0.00초",
+    "타임스탬프": "2025-07-05T23:57:22.788707",
+    "응답데이터": {
+      "status_code": 404,
+      "data": {
+        "error": "요청한 리소스를 찾을 수 없습니다"
+      },
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.5",
+        "Date": "Sat, 05 Jul 2025 15:57:22 GMT",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "url": "http://localhost:3000/api/v1/jobs/categories 요청",
+      "method": "GET"
+    }
+  },
+  {
+    "TC_ID": "TC006",
+    "기능분류": "인증API",
+    "테스트명": "회원가입_정상",
+    "사전조건": "서버실행",
+    "테스트단계": "POST /api/v1/auth/signup\n{\"email\": \"test@example.com\", \"password\": \"password123\", \"name\": \"테스트사용자\"}",
+    "예상결과": "201 Created와 사용자 생성 성공 메시지 반환",
+    "실제결과": "201 Created, 생성 성공",
+    "Pass/Fail": "PASS",
+    "비고": "신규 사용자 정보로 테스트",
+    "실행시간": "0.00초",
+    "타임스탬프": "2025-07-05T23:57:23.290848",
+    "응답데이터": {
+      "status_code": 201,
+      "data": {
+        "message": "회원가입이 완료되었습니다",
+        "user_id": 12345,
+        "email": "test@example.com"
+      },
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.5",
+        "Date": "Sat, 05 Jul 2025 15:57:23 GMT",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "url": "http://localhost:3000/api/v1/auth/signup",
+      "method": "POST"
+    }
+  },
+  {
+    "TC_ID": "TC007",
+    "기능분류": "인증API",
+    "테스트명": "회원가입_중복이메일",
+    "사전조건": "이미 가입된 이메일 존재",
+    "테스트단계": "POST /api/v1/auth/signup \n기존 이메일로 재가입 시도",
+    "예상결과": "409 Conflict와 중복 이메일 오류 메시지 반환",
+    "실제결과": "400 Bad Request, 잘못된 요청",
+    "Pass/Fail": "FAIL",
+    "비고": "이메일 중복 검증 확인",
+    "실행시간": "0.00초",
+    "타임스탬프": "2025-07-05T23:57:23.792735",
+    "응답데이터": {
+      "status_code": 400,
+      "data": {
+        "error": "유효한 이메일을 입력해주세요"
+      },
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.5",
+        "Date": "Sat, 05 Jul 2025 15:57:23 GMT",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "url": "http://localhost:3000/api/v1/auth/signup",
+      "method": "POST"
+    }
+  },
+  {
+    "TC_ID": "TC008",
+    "기능분류": "인증API",
+    "테스트명": "회원가입_잘못된형식",
+    "사전조건": "서버실행",
+    "테스트단계": "POST /api/v1/auth/signup\n{\"email\": \"invalid-email\", \"password\": \"123\"}",
+    "예상결과": "400 Bad Request와 유효성 검사 오류 메시지 반환",
+    "실제결과": "400 Bad Request, 잘못된 요청",
+    "Pass/Fail": "PASS",
+    "비고": "이메일 형식 및 비밀번호 길이 검증",
+    "실행시간": "0.00초",
+    "타임스탬프": "2025-07-05T23:57:24.294572",
+    "응답데이터": {
+      "status_code": 400,
+      "data": {
+        "error": "유효한 이메일을 입력해주세요"
+      },
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.5",
+        "Date": "Sat, 05 Jul 2025 15:57:24 GMT",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "url": "http://localhost:3000/api/v1/auth/signup",
+      "method": "POST"
+    }
+  },
+  {
+    "TC_ID": "TC009",
+    "기능분류": "인증API",
+    "테스트명": "로그인_정상",
+    "사전조건": "가입된 사용자 존재",
+    "테스트단계": "POST /api/v1/auth/login\n{\"email\": \"test@example.com\", \"password\": \"password123\"}",
+    "예상결과": "200 OK와 JWT 토큰 반환",
+    "실제결과": "200 OK, JSON 객체 (키: ['message', 'token', 'user']...)",
+    "Pass/Fail": "PASS",
+    "비고": "토큰 형식 및 유효성 확인",
+    "실행시간": "0.00초",
+    "타임스탬프": "2025-07-05T23:57:24.796640",
+    "응답데이터": {
+      "status_code": 200,
+      "data": {
+        "message": "로그인 성공",
+        "token": "valid_test_token",
+        "user": {
+          "id": 12345,
+          "email": "test@example.com",
+          "name": "테스트 사용자"
+        }
+      },
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.5",
+        "Date": "Sat, 05 Jul 2025 15:57:24 GMT",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "url": "http://localhost:3000/api/v1/auth/login",
+      "method": "POST"
+    }
+  },
+  {
+    "TC_ID": "TC010",
+    "기능분류": "인증API",
+    "테스트명": "로그인_잘못된비밀번호",
+    "사전조건": "가입된 사용자 존재",
+    "테스트단계": "POST /api/v1/auth/login\n{\"email\": \"test@example.com\", \"password\": \"wrongpassword\"}",
+    "예상결과": "401 Unauthorized와 인증 실패 메시지 반환",
+    "실제결과": "401 Unauthorized, 인증 실패",
+    "Pass/Fail": "PASS",
+    "비고": "잘못된 비밀번호 처리",
+    "실행시간": "0.00초",
+    "타임스탬프": "2025-07-05T23:57:25.299018",
+    "응답데이터": {
+      "status_code": 401,
+      "data": {
+        "error": "이메일 또는 비밀번호가 잘못되었습니다"
+      },
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.5",
+        "Date": "Sat, 05 Jul 2025 15:57:25 GMT",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "url": "http://localhost:3000/api/v1/auth/login",
+      "method": "POST"
+    }
+  },
+  {
+    "TC_ID": "TC011",
+    "기능분류": "인증API",
+    "테스트명": "로그인_존재하지않는계정",
+    "사전조건": "서버실행",
+    "테스트단계": "POST /api/v1/auth/login\n{\"email\": \"notexist@example.com\", \"password\": \"password123\"}",
+    "예상결과": "401 Unauthorized와 사용자 없음 메시지 반환",
+    "실제결과": "401 Unauthorized, 인증 실패",
+    "Pass/Fail": "PASS",
+    "비고": "존재하지 않는 사용자 처리",
+    "실행시간": "0.00초",
+    "타임스탬프": "2025-07-05T23:57:25.800866",
+    "응답데이터": {
+      "status_code": 401,
+      "data": {
+        "error": "이메일 또는 비밀번호가 잘못되었습니다"
+      },
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.5",
+        "Date": "Sat, 05 Jul 2025 15:57:25 GMT",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "url": "http://localhost:3000/api/v1/auth/login",
+      "method": "POST"
+    }
+  },
+  {
+    "TC_ID": "TC012",
+    "기능분류": "보호된API",
+    "테스트명": "깃허브프로필_인증토큰있음",
+    "사전조건": "로그인된 사용자",
+    "테스트단계": "GET /api/v1/github/profile\nAuthorization: Bearer {valid_token}",
+    "예상결과": "200 OK와 GitHub 프로필 정보 반환",
+    "실제결과": "200 OK, JSON 객체 (키: ['username', 'name', 'email']...)",
+    "Pass/Fail": "PASS",
+    "비고": "프로필 데이터 구조 확인",
+    "실행시간": "0.00초",
+    "타임스탬프": "2025-07-05T23:57:26.302943",
+    "응답데이터": {
+      "status_code": 200,
+      "data": {
+        "username": "testuser",
+        "name": "테스트 사용자",
+        "email": "test@example.com",
+        "public_repos": 15,
+        "followers": 42,
+        "following": 18,
+        "bio": "Full-stack developer passionate about open source"
+      },
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.5",
+        "Date": "Sat, 05 Jul 2025 15:57:26 GMT",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "url": "http://localhost:3000/api/v1/github/profile",
+      "method": "GET"
+    }
+  },
+  {
+    "TC_ID": "TC013",
+    "기능분류": "보호된API",
+    "테스트명": "깃허브프로필_토큰없음",
+    "사전조건": "토큰 없는 상태",
+    "테스트단계": "GET /api/v1/github/profile (토큰 헤더 없음)",
+    "예상결과": "401 Unauthorized와 인증 필요 메시지 반환",
+    "실제결과": "404 Not Found, 리소스 없음",
+    "Pass/Fail": "FAIL",
+    "비고": "인증 토큰 필수 검증",
+    "실행시간": "0.00초",
+    "타임스탬프": "2025-07-05T23:57:26.804838",
+    "응답데이터": {
+      "status_code": 404,
+      "data": {
+        "error": "요청한 리소스를 찾을 수 없습니다"
+      },
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.5",
+        "Date": "Sat, 05 Jul 2025 15:57:26 GMT",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "url": "http://localhost:3000/api/v1/github/profile (토큰 헤더 없음)",
+      "method": "GET"
+    }
+  },
+  {
+    "TC_ID": "TC014",
+    "기능분류": "보호된API",
+    "테스트명": "깃허브프로필_만료된토큰",
+    "사전조건": "만료된 토큰",
+    "테스트단계": "GET /api/v1/github/profile\nAuthorization: Bearer {expired_token}",
+    "예상결과": "401 Unauthorized와 토큰 만료 메시지 반환",
+    "실제결과": "200 OK, JSON 객체 (키: ['username', 'name', 'email']...)",
+    "Pass/Fail": "FAIL",
+    "비고": "토큰 만료 처리 확인",
+    "실행시간": "0.00초",
+    "타임스탬프": "2025-07-05T23:57:27.306670",
+    "응답데이터": {
+      "status_code": 200,
+      "data": {
+        "username": "testuser",
+        "name": "테스트 사용자",
+        "email": "test@example.com",
+        "public_repos": 15,
+        "followers": 42,
+        "following": 18,
+        "bio": "Full-stack developer passionate about open source"
+      },
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.5",
+        "Date": "Sat, 05 Jul 2025 15:57:27 GMT",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "url": "http://localhost:3000/api/v1/github/profile",
+      "method": "GET"
+    }
+  },
+  {
+    "TC_ID": "TC015",
+    "기능분류": "시나리오",
+    "테스트명": "트렌드확인플로우",
+    "사전조건": "서버실행",
+    "테스트단계": "1. GET /api/v1/trends 요청\n2. 응답 데이터 확인\n3. 인기 스킬과 연관성 확인",
+    "예상결과": "각 단계별 정상 응답과 데이터 일관성 확인",
+    "실제결과": "200 OK, JSON 배열 (5개 항목)",
+    "Pass/Fail": "PASS",
+    "비고": "사용자가 트렌드를 확인하는 전체 플로우",
+    "실행시간": "0.00초",
+    "타임스탬프": "2025-07-05T23:57:27.808737",
+    "응답데이터": {
+      "status_code": 200,
+      "data": [
+        {
+          "id": 1,
+          "name": "Python",
+          "popularity": 95,
+          "category": "programming"
+        },
+        {
+          "id": 2,
+          "name": "JavaScript",
+          "popularity": 90,
+          "category": "programming"
+        },
+        {
+          "id": 3,
+          "name": "React",
+          "popularity": 85,
+          "category": "framework"
+        },
+        {
+          "id": 4,
+          "name": "Docker",
+          "popularity": 80,
+          "category": "devops"
+        },
+        {
+          "id": 5,
+          "name": "Kubernetes",
+          "popularity": 75,
+          "category": "devops"
+        }
+      ],
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.5",
+        "Date": "Sat, 05 Jul 2025 15:57:27 GMT",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "url": "http://localhost:3000/api/v1/trends",
+      "method": "GET"
+    }
+  },
+  {
+    "TC_ID": "TC016",
+    "기능분류": "시나리오",
+    "테스트명": "회원가입로그인프로필조회",
+    "사전조건": "서버실행",
+    "테스트단계": "1. POST /api/v1/auth/signup (신규가입)\n2. POST /api/v1/auth/login (로그인)  \n3. GET /api/v1/github/profile (프로필조회)",
+    "예상결과": "각 단계별 성공과 최종 프로필 데이터 조회 완료",
+    "실제결과": "200 OK, JSON 배열 (5개 항목)",
+    "Pass/Fail": "PASS",
+    "비고": "신규 사용자의 전체 온보딩 플로우",
+    "실행시간": "0.00초",
+    "타임스탬프": "2025-07-05T23:57:28.310563",
+    "응답데이터": {
+      "status_code": 200,
+      "data": [
+        {
+          "id": 1,
+          "name": "Python",
+          "popularity": 95,
+          "category": "programming"
+        },
+        {
+          "id": 2,
+          "name": "JavaScript",
+          "popularity": 90,
+          "category": "programming"
+        },
+        {
+          "id": 3,
+          "name": "React",
+          "popularity": 85,
+          "category": "framework"
+        },
+        {
+          "id": 4,
+          "name": "Docker",
+          "popularity": 80,
+          "category": "devops"
+        },
+        {
+          "id": 5,
+          "name": "Kubernetes",
+          "popularity": 75,
+          "category": "devops"
+        }
+      ],
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.5",
+        "Date": "Sat, 05 Jul 2025 15:57:28 GMT",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "url": "http://localhost:3000/api/v1/trends",
+      "method": "GET"
+    }
+  }
+]

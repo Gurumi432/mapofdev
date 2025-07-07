@@ -1,0 +1,35 @@
+TC_ID,기능분류,테스트명,사전조건,테스트단계,예상결과,실제결과,Pass/Fail,비고
+TC001,공개API,트렌드조회_정상,서버실행,GET /api/v1/trends 요청,200 OK HTTP 상태코드와 JSON 배열 형태의 트렌드 데이터 반환,,,"트렌드 데이터 구조: {id, name, popularity, category}"
+TC002,공개API,트렌드조회_서버다운,서버중지,GET /api/v1/trends 요청,연결 실패 오류 (Connection refused or timeout),,,"네트워크 에러 처리 확인"
+TC003,공개API,인기스킬조회_정상,서버실행,GET /api/v1/skills/popular 요청,200 OK와 인기 스킬 목록 JSON 배열 반환,,,"스킬 데이터 구조: {skill_name, demand_score, growth_rate}"
+TC004,공개API,직군카테고리조회_정상,서버실행,GET /api/v1/jobs/categories 요청,200 OK와 직군 카테고리 목록 JSON 배열 반환,,,"카테고리 구조: {category_id, category_name, job_count}"
+TC005,공개API,잘못된엔드포인트_404,서버실행,GET /api/v1/invalid-endpoint 요청,404 Not Found 상태코드 반환,,,"존재하지 않는 엔드포인트 처리"
+TC006,인증API,회원가입_정상,서버실행,"POST /api/v1/auth/signup
+{""email"": ""test@example.com"", ""password"": ""password123"", ""name"": ""테스트사용자""}",201 Created와 사용자 생성 성공 메시지 반환,,,"신규 사용자 정보로 테스트"
+TC007,인증API,회원가입_중복이메일,이미 가입된 이메일 존재,"POST /api/v1/auth/signup 
+기존 이메일로 재가입 시도",409 Conflict와 중복 이메일 오류 메시지 반환,,,"이메일 중복 검증 확인"
+TC008,인증API,회원가입_잘못된형식,서버실행,"POST /api/v1/auth/signup
+{""email"": ""invalid-email"", ""password"": ""123""}",400 Bad Request와 유효성 검사 오류 메시지 반환,,,"이메일 형식 및 비밀번호 길이 검증"
+TC009,인증API,로그인_정상,가입된 사용자 존재,"POST /api/v1/auth/login
+{""email"": ""test@example.com"", ""password"": ""password123""}",200 OK와 JWT 토큰 반환,,,"토큰 형식 및 유효성 확인"
+TC010,인증API,로그인_잘못된비밀번호,가입된 사용자 존재,"POST /api/v1/auth/login
+{""email"": ""test@example.com"", ""password"": ""wrongpassword""}",401 Unauthorized와 인증 실패 메시지 반환,,,"잘못된 비밀번호 처리"
+TC011,인증API,로그인_존재하지않는계정,서버실행,"POST /api/v1/auth/login
+{""email"": ""notexist@example.com"", ""password"": ""password123""}",401 Unauthorized와 사용자 없음 메시지 반환,,,"존재하지 않는 사용자 처리"
+TC012,보호된API,깃허브프로필_인증토큰있음,로그인된 사용자,"GET /api/v1/github/profile
+Authorization: Bearer {valid_token}",200 OK와 GitHub 프로필 정보 반환,,,"프로필 데이터 구조 확인"
+TC013,보호된API,깃허브프로필_토큰없음,토큰 없는 상태,GET /api/v1/github/profile (토큰 헤더 없음),401 Unauthorized와 인증 필요 메시지 반환,,,"인증 토큰 필수 검증"
+TC014,보호된API,깃허브프로필_만료된토큰,만료된 토큰,"GET /api/v1/github/profile
+Authorization: Bearer {expired_token}",401 Unauthorized와 토큰 만료 메시지 반환,,,"토큰 만료 처리 확인"
+TC015,시나리오,트렌드확인플로우,서버실행,"1. GET /api/v1/trends 요청
+2. 응답 데이터 확인
+3. 인기 스킬과 연관성 확인",각 단계별 정상 응답과 데이터 일관성 확인,,,"사용자가 트렌드를 확인하는 전체 플로우"
+TC016,시나리오,회원가입로그인프로필조회,서버실행,"1. POST /api/v1/auth/signup (신규가입)
+2. POST /api/v1/auth/login (로그인)  
+3. GET /api/v1/github/profile (프로필조회)",각 단계별 성공과 최종 프로필 데이터 조회 완료,,,"신규 사용자의 전체 온보딩 플로우"
+TC017,예외처리,대용량요청_처리,서버실행,매우 큰 페이로드로 API 요청,413 Payload Too Large 또는 적절한 에러 처리,,,"요청 크기 제한 확인"
+TC018,예외처리,동시요청_처리,서버실행,동일 API에 대한 다중 동시 요청,모든 요청의 적절한 처리 또는 적절한 rate limiting,,,"동시성 처리 능력 확인"
+TC019,보안,SQL인젝션_방어,서버실행,"악의적 SQL 코드를 포함한 요청
+예: {""email"": ""test@example.com'; DROP TABLE users; --""}",요청 거부 또는 안전한 처리 (SQL 실행되지 않음),,,"SQL Injection 공격 방어 확인"
+TC020,보안,XSS_방어,서버실행,"스크립트 태그를 포함한 요청
+예: {""name"": ""<script>alert('xss')</script>""}",스크립트 태그 제거 또는 이스케이프 처리,,,"Cross-Site Scripting 방어 확인"

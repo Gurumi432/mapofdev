@@ -1,0 +1,4 @@
+TC_ID,기능분류,테스트명,사전조건,테스트단계,예상결과,비고
+TC001,공개API,트렌드 데이터 조회,서버실행,GET /api/v1/trends,200 OK JSON 배열,기본 API 테스트
+TC002,공개API,존재하지 않는 엔드포인트,서버실행,GET /api/v1/nonexistent,404 Not Found,에러 처리 테스트
+TC003,공개API,인기 스킬 조회,서버실행,GET /api/v1/skills/popular,200 OK JSON 배열,스킬 데이터 테스트

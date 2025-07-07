@@ -1,0 +1,4 @@
+﻿TC_ID,기능분류,테스트명,사전조건,테스트단계,예상결과,실제결과,Pass/Fail,비고,실행시간,타임스탬프
+TC001,공개API,트렌드조회_정상,서버실행,GET /api/v1/trends 요청,200 OK HTTP 상태코드와 JSON 배열 형태의 트렌드 데이터 반환,오류: 연결 실패 - 서버가 실행 중인지 확인하세요,FAIL,"트렌드 데이터 구조: {id, name, popularity, category}",0.00초,2025-07-05T23:55:56.500408
+TC002,공개API,트렌드조회_서버다운,서버중지,GET /api/v1/trends 요청,연결 실패 오류 (Connection refused or timeout),오류: 연결 실패 - 서버가 실행 중인지 확인하세요,FAIL,네트워크 에러 처리 확인,0.00초,2025-07-05T23:55:57.004962
+TC003,공개API,인기스킬조회_정상,서버실행,GET /api/v1/skills/popular 요청,200 OK와 인기 스킬 목록 JSON 배열 반환,오류: 연결 실패 - 서버가 실행 중인지 확인하세요,FAIL,"스킬 데이터 구조: {skill_name, demand_score, growth_rate}",0.00초,2025-07-05T23:55:57.506324
