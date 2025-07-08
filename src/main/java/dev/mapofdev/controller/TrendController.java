@@ -25,6 +25,7 @@ import java.util.List;
 @RequestMapping("/api/v1/trends") // 기본 URL 경로 설정
 @RequiredArgsConstructor
 @Tag(name = "Trend API", description = "채용 트렌드 관련 API") // Swagger 문서용
+
 public class TrendController {
 
   private final TrendService trendService; // 비즈니스 로직 처리를 위한 서비스
@@ -120,5 +121,19 @@ public class TrendController {
       return ResponseEntity.internalServerError()
         .body(ApiResponse.fail("트렌드 생성에 실패했습니다."));
     }
+  }
+  /**
+   * ID로 트렌드 조회 (예외 처리 테스트용)
+   */
+  @GetMapping("/{id}")
+  @Operation(summary = "ID로 트렌드 조회", description = "특정 ID의 트렌드를 조회합니다.")
+  public ResponseEntity<ApiResponse<TrendDto>> getTrendById(
+    @Parameter(description = "트렌드 ID", example = "1")
+    @PathVariable Long id) {
+    log.info("GET /api/v1/trends/{} - ID로 트렌드 조회", id);
+
+    // try-catch 제거 - GlobalExceptionHandler가 자동으로 처리
+    TrendDto trend = trendService.getTrendById(id);
+    return ResponseEntity.ok(ApiResponse.success(trend));
   }
 }

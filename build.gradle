@@ -92,6 +92,8 @@ dependencies {
   // Swagger/OpenAPI
   implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
 
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
 	// ----------------------------------------------------------------
 	// 🔐 인증 관련 (GitHub 로그인, 토큰 관리)
 	// ----------------------------------------------------------------
@@ -109,7 +111,7 @@ dependencies {
 	// ----------------------------------------------------------------
 
 	// Redis 캐싱 (자주 사용하는 데이터를 메모리에 저장해서 빠르게 조회)
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	//implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
 	// WebFlux (비동기 웹 클라이언트 - GitHub API 호출용)
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
@@ -165,6 +167,7 @@ dependencies {
 
 	// JUnit 플랫폼 (테스트 실행 엔진)
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
 }
 
 // ================================================================

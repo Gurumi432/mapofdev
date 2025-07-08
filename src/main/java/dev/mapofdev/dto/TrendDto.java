@@ -26,6 +26,7 @@ public class TrendDto {
   private Double growthRate;
   private String description;
   private String period;
+  private Boolean hot;
 
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // JSON 변환시 날짜 형식 지정
   private LocalDateTime createdAt;
