@@ -1,3 +1,26 @@
+25-7-07
+config    - 보안, CORS, JSON 등 전역 설정 클래스 모음
+controller- HTTP 요청을 받아 응답을 반환하는 계층
+domain    - DB 테이블 구조를 정의하는 @Entity 클래스
+dto       - 요청·응답용 데이터 구조 (DB와 분리된 값 객체)
+exception - 에러 종류 정의 및 예외 처리 핸들러 위치
+repository- DB에서 데이터 조회·저장 쿼리(DB에 무엇을 달라고 요구하는 명령)를 정의
+service   - 실제 로직과 흐름을 처리하는 비즈니스 계층
+util      - 공통 도구성 클래스 (날짜, 문자열 등 재사용 기능)
+
+
+25-6-26
+src/main/java
+👉 자바 소스 파일들이 들어가는 기본 위치입니다.
+
+dev/mapofdev/mapofdev
+👉 당신이 설정한 패키지 이름에 따라 자동 생성된 폴더입니다.
+(이건 package dev.mapofdev.mapofdev; 때문에 이렇게 된 거예요)
+
+MapofdevApplication.java
+👉 Spring Boot 프로젝트의 메인 클래스입니다.
+이 파일 안에서 프로젝트 실행이 시작돼요.
+
 25-6-25
 프레임워크 : 소프트웨어 개발을 돕는 도구 (클래스, 함수들의 집합)
 
@@ -12,14 +35,3 @@ linux 환경 실행법 (C:\Users\idonk\Downloads\mapofdev)
 window 환경 실행법 (C:\Users\idonk\Downloads\mapofdev)
 gradlew.bat bootRun
 
-25-6-26
-src/main/java
-👉 자바 소스 파일들이 들어가는 기본 위치입니다.
-
-dev/mapofdev/mapofdev
-👉 당신이 설정한 패키지 이름에 따라 자동 생성된 폴더입니다.
-(이건 package dev.mapofdev.mapofdev; 때문에 이렇게 된 거예요)
-
-MapofdevApplication.java
-👉 Spring Boot 프로젝트의 메인 클래스입니다.
-이 파일 안에서 프로젝트 실행이 시작돼요.

@@ -89,6 +89,9 @@ dependencies {
 	// 입력값 검증 (@Valid, @NotNull 등)
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+  // Swagger/OpenAPI
+  implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+
 	// ----------------------------------------------------------------
 	// 🔐 인증 관련 (GitHub 로그인, 토큰 관리)
 	// ----------------------------------------------------------------

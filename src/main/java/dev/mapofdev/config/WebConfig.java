@@ -17,7 +17,7 @@ localhost:8081에서 GET, POST, PUT, DELETE, OPTIONS 요청을 보낼 경우,
 또한, Spring 서버는 클라이언트가 쿠키나 인증 토큰 등의 자격 증명 정보를 포함한 요청을 보낼 수 있도록 허용한다
 */
 
-    registry.addMapping("/api/**") // /api로 시작하는 요청에 대해
+    registry.addMapping("/**") // /api로 시작하는 요청에 대해
 
       .allowedOrigins(
         "http://localhost:3000",  // 프론트엔드 개발 서버 주소들
