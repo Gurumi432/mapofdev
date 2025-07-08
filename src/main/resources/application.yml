@@ -19,7 +19,7 @@ spring:
 
   # ✅ DB 연결 설정 (어떤 DB에 연결할지)
   datasource:
-    url: jdbc:h2:mem:mapofdev  # 메모리 DB 사용 (컴퓨터 껐다 키면 DB 날아감)
+    url: jdbc:h2:file:./data/mapofdev;DB_CLOSE_ON_EXIT=FALSE  # 파일 기반 DB (데이터 유지됨)
     driver-class-name: org.h2.Driver  # DB 연결을 위한 드라이버 이름
     username: sa  # DB 사용자명 (기본값)
     password:  # 비번 없음
@@ -31,7 +31,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect  # 어떤 DB 쓰는지 알려줌 (H2용 설정)
     hibernate:
-      ddl-auto: create-drop  # 서버 시작할 때 테이블을 새로 만들고, 종료 시 삭제함 (초기 개발에만)
+      ddl-auto: update  # 기존 테이블 유지하고 변경사항만 적용 (데이터 보존)
     properties:
       hibernate:
         format_sql: true  # SQL 문 예쁘게 보기 좋게 출력
