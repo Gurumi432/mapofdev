@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapOfDev - 데이터로 커리어를 설계하다</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 150px 0 100px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero .tagline {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 1rem 2rem;
+            border: 2px solid white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 50px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #667eea;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .features h2 {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Loading Animation */
+        .loading-dots {
+            display: inline-block;
+        }
+
+        .loading-dots::after {
+            content: '';
+            animation: dots 2s infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60% { content: '...'; }
+            80%, 100% { content: ''; }
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header>
+    <nav class="container">
+        <a href="#" class="logo">MapOfDev</a>
+        <ul class="nav-links">
+            <li><a href="#features">기능</a></li>
+            <li><a href="#about">소개</a></li>
+            <li><a href="#stats">통계</a></li>
+            <li><a href="#contact">문의</a></li>
+        </ul>
+        <a href="#" class="cta-button">
+            <i class="fab fa-github"></i>
+            GitHub 연동
+        </a>
+    </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container animate-fade-in">
+        <h1>MapOfDev</h1>
+        <p class="tagline">데이터로 커리어를 설계하다 – 당신만의 커리어 나침반</p>
+        <p class="description">
+            IT 채용 트렌드 분석, GitHub 활동 기반 역량 평가, 맞춤형 진로 추천까지.<br>
+            데이터 기반으로 개발자 커리어를 체계적으로 설계하세요.
+        </p>
+        <div class="hero-buttons">
+            <a href="#" class="btn-primary">
+                <i class="fas fa-rocket"></i>
+                시작하기
+            </a>
+            <a href="#features" class="btn-secondary">
+                <i class="fas fa-info-circle"></i>
+                더 알아보기
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features" id="features">
+    <div class="container">
+        <h2>핵심 기능</h2>
+        <div class="features-grid">
+            <div class="feature-card animate-fade-in">
+                <i class="fas fa-chart-line feature-icon"></i>
+                <h3>IT산업 채용 데이터 시각화</h3>
+                <p>실시간 채용 트렌드와 기술 스택 수요를 한눈에 파악하여 시장 동향을 빠르게 이해하세요.</p>
+            </div>
+            <div class="feature-card animate-fade-in">
+                <i class="fab fa-github feature-icon"></i>
+                <h3>GitHub 활동 기반 역량 분석</h3>
+                <p>GitHub 커밋, 레포지토리, 기여도를 분석하여 개발자의 실제 역량을 객관적으로 평가합니다.</p>
+            </div>
+            <div class="feature-card animate-fade-in">
+                <i class="fas fa-users feature-icon"></i>
+                <h3>유사 사용자 기반 진로 추천</h3>
+                <p>비슷한 프로필의 선배 개발자들의 커리어 패스를 분석하여 최적의 진로를 제안합니다.</p>
+            </div>
+            <div class="feature-card animate-fade-in">
+                <i class="fas fa-road feature-icon"></i>
+                <h3>개인 맞춤형 학습 로드맵</h3>
+                <p>현재 역량과 목표를 바탕으로 체계적인 학습 계획과 로드맵을 자동으로 생성합니다.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats" id="stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item animate-fade-in">
+                <h3 class="loading-dots">분석중</h3>
+                <p>채용 공고 분석</p>
+            </div>
+            <div class="stat-item animate-fade-in">
+                <h3 class="loading-dots">수집중</h3>
+                <p>GitHub 레포지토리</p>
+            </div>
+            <div class="stat-item animate-fade-in">
+                <h3 class="loading-dots">개발중</h3>
+                <p>추천 알고리즘</p>
+            </div>
+            <div class="stat-item animate-fade-in">
+                <h3>100%</h3>
+                <p>팀 열정도</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="contact">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>MapOfDev</h3>
+                <p>개발자를 위한 데이터 기반 커리어 설계 플랫폼</p>
+                <p>현재 MVP 개발 진행 중 🚀</p>
+            </div>
+            <div class="footer-section">
+                <h3>주요 기능</h3>
+                <a href="#">채용 트렌드 분석</a>
+                <a href="#">GitHub 역량 평가</a>
+                <a href="#">진로 추천</a>
+                <a href="#">학습 로드맵</a>
+            </div>
+            <div class="footer-section">
+                <h3>프로젝트</h3>
+                <a href="https://github.com/jinnamm/mapofdev">GitHub Repository</a>
+                <a href="#">프로젝트 문서</a>
+                <a href="#">개발 일지</a>
+                <a href="#">API 문서</a>
+            </div>
+            <div class="footer-section">
+                <h3>팀</h3>
+                <a href="#">백엔드 개발</a>
+                <a href="#">프론트엔드 개발</a>
+                <a href="#">데이터 분석</a>
+                <a href="#">DevOps & QA</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 MapOfDev Team. 포트폴리오 프로젝트입니다.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Simple scroll animation
+    window.addEventListener('scroll', () => {
+        const elements = document.querySelectorAll('.animate-fade-in');
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+
+            if (elementTop < windowHeight - 100) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
+        });
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Dynamic stats update simulation
+    document.addEventListener('DOMContentLoaded', () => {
+        const stats = document.querySelectorAll('.stat-item h3');
+        stats.forEach(stat => {
+            if (stat.textContent.includes('분석중') || stat.textContent.includes('수집중') || stat.textContent.includes('개발중')) {
+                // Add some dynamic feeling to development status
+                setTimeout(() => {
+                    if (stat.textContent.includes('분석중')) {
+                        stat.innerHTML = '1,000+';
+                        stat.parentElement.querySelector('p').textContent = '채용 공고 수집 완료';
+                    }
+                }, 2000);
+            }
+        });
+    });
+</script>
+</body>
+</html>

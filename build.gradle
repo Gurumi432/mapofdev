@@ -1,282 +1,29 @@
-// (최하단에 학습 기록 기재)
-
-// ================================================================
-// 🔌 플러그인 설정 (Gradle에게 어떤 기능을 사용할지 알려주는 영역)
-// ================================================================
 plugins {
-
-	id 'java' // Java 언어 지원 플러그인 (자바 컴파일, 테스트 실행 등)
-
-	id 'org.springframework.boot' version '3.5.3' // Spring Boot 플러그인 (Spring Boot 앱을 쉽게 빌드하고 실행)
-	// 3.5.3 버전 사용 (2024년 최신 안정 버전)
-
-	id 'io.spring.dependency-management' version '1.1.7' // Spring 의존성 관리 플러그인 (Spring 관련 라이브러리 버전 자동 관리)
+  id 'java'
+  id 'org.springframework.boot' version '3.5.3'
+  id 'io.spring.dependency-management' version '1.1.7'
 }
 
-// ================================================================
-// 📋 프로젝트 기본 정보 (회사나 개인 프로젝트의 신원)
-// ================================================================
-group = 'dev.mapofdev'                                    // 프로젝트 그룹 (보통 도메인명을 거꾸로)
-version = '0.0.1-SNAPSHOT'                                // 프로젝트 버전 (SNAPSHOT = 개발 중)
-description = '데이터로 커리어를 설계하다 – 당신만의 커리어 나침반'  // 프로젝트 설명
+group = 'hello'
+version = '0.0.1-SNAPSHOT'
 
-
-// ================================================================
-// ☕ Java 설정 (어떤 자바 버전을 사용할지)
-// ================================================================
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17) // Java 17 사용 (Spring Boot 3.x는 Java 17 이상 필요)
-	}
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(17)
+  }
 }
 
-// ================================================================
-// 🔧 특수 설정 (Lombok과 같은 도구를 위한 설정)
-// ================================================================
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor 		// Lombok을 어노테이션 프로세서로 처리하도록 설정
-        //	의존성 : annotationProcessor 'org.projectlombok:lombok'     // 어노테이션 처리
-		// 롬복은 @Getter, @Setter 등 같은 어노테이션을 클래스에 붙이고 컴파일 시, 자동으로 해당 클래스 내부에 그에 해당하는 메서드를 붙임
-        // 그래서 롬복은 코드를 짧게 만드는데에 기여함
-
-	}
-}
-
-// ================================================================
-// 📦 저장소 설정 (라이브러리를 어디서 다운로드할지)
-// ================================================================
 repositories {
-	mavenCentral() // Maven Central 저장소 (가장 큰 Java 라이브러리 저장소)
+  mavenCentral()
 }
 
-// ================================================================
-// 📌 라이브러리 버전 변수 모음
-// 이곳에서 외부 라이브러리의 버전을 한 번에 정의해두고,
-// 아래 dependencies 블록에서 불러다 사용함.
-// 나중에 버전 업그레이드할 때 여기 숫자만 바꾸면 됨!
-// ================================================================
-ext {
-    // 🔐 JWT: 로그인할 때 토큰 만들어주는 라이브러리
-    set('jjwtVersion', '0.12.3')
-
-    // 🌐 Jsoup: HTML 문서에서 데이터 추출할 때 사용하는 웹 크롤링 도구
-    set('jsoupVersion', '1.17.2')
-
-    // 📄 SpringDoc: API 문서를 자동으로 만들어주는 도구 (Swagger랑 비슷)
-    set('springDocVersion', '2.3.0')
-}
-
-
-// ================================================================
-// 📚 의존성 설정 (프로젝트에서 사용할 라이브러리들)
-// ================================================================
 dependencies {
-
-	// ----------------------------------------------------------------
-	// 🏗️ Spring Boot 핵심 기능들 (스프링 부트의 기본 기능)
-	// ----------------------------------------------------------------
-
-	// 웹 애플리케이션 개발 (REST API 만들기)
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-
-	// 데이터베이스 연동 (JPA - 자바로 DB 쉽게 다루기)
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
-	// 보안 기능 (로그인, 권한 관리)
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-
-	// 입력값 검증 (@Valid, @NotNull 등)
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-	// ----------------------------------------------------------------
-	// 🔐 인증 관련 (GitHub 로그인, 토큰 관리)
-	// ----------------------------------------------------------------
-
-	// OAuth2 클라이언트 (GitHub, Google 등으로 로그인)
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-
-	// JWT 토큰 라이브러리 (로그인 상태 유지용 토큰 생성)
-	implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"        // JWT API
-	implementation "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"       // JWT 구현체
-	implementation "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}"    // JWT JSON 처리
-
-	// ----------------------------------------------------------------
-	// 🚀 성능 최적화 (캐싱, 비동기 처리)
-	// ----------------------------------------------------------------
-
-	// Redis 캐싱 (자주 사용하는 데이터를 메모리에 저장해서 빠르게 조회)
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-
-	// WebFlux (비동기 웹 클라이언트 - GitHub API 호출용)
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-
-	// ----------------------------------------------------------------
-	// 🔍 데이터 처리 & 크롤링 (외부 데이터 수집)
-	// ----------------------------------------------------------------
-
-	// Jsoup (HTML 파싱, 웹 크롤링용)
-	implementation "org.jsoup:jsoup:${jsoupVersion}"
-
-	// Jackson (JSON 날짜 처리 개선)
-	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-
-	// ----------------------------------------------------------------
-	// 📖 API 문서화 (포트폴리오용 - 자동으로 API 문서 생성)
-	// ----------------------------------------------------------------
-
-	// SpringDoc OpenAPI (Swagger UI 자동 생성)
-	// 브라우저에서 localhost:8080/swagger-ui.html 접속하면 API 문서 확인 가능
-	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}"
-
-	// ----------------------------------------------------------------
-	// 💾 데이터베이스 (실제 데이터 저장소)
-	// ----------------------------------------------------------------
-
-	// PostgreSQL 드라이버 (실제 운영 데이터베이스)
-	runtimeOnly 'org.postgresql:postgresql'
-
-	// H2 Database (개발용 임시 데이터베이스 - 메모리에 저장)
-	runtimeOnly 'com.h2database:h2'
-
-	// ----------------------------------------------------------------
-	// 🛠️ 개발 편의성 도구들
-	// ----------------------------------------------------------------
-
-	// Spring Boot DevTools (코드 변경 시 자동 재시작)
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
-	// Lombok (코드 자동 생성 - @Getter, @Setter, @ToString 등)
-	compileOnly 'org.projectlombok:lombok'              // 컴파일 시에만 필요
-	annotationProcessor 'org.projectlombok:lombok'     // 어노테이션 처리
-
-	// ----------------------------------------------------------------
-	// 🧪 테스트 관련 (코드 검증용)
-	// ----------------------------------------------------------------
-
-	// Spring Boot 테스트 도구들 (JUnit, Mockito 등 포함)
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-	// Spring Security 테스트 도구 (로그인 관련 테스트)
-	testImplementation 'org.springframework.security:spring-security-test'
-
-	// JUnit 플랫폼 (테스트 실행 엔진)
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+  implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-// ================================================================
-// 🧪 테스트 설정 (테스트 실행 방법)
-// ================================================================
 tasks.named('test') {
-	// JUnit 5 플랫폼 사용 (최신 테스트 프레임워크)
-	useJUnitPlatform()
+  useJUnitPlatform()
 }
-
-// ================================================================
-// 📊 사용자 정의 태스크 (개발자가 직접 만든 명령어)
-// ================================================================
-
-// 프로젝트 정보 출력 태스크 (터미널에서 ./gradlew projectInfo 실행)
-tasks.register('projectInfo') {
-	doLast {
-		println "="*50
-		println "📋 mapofdev 프로젝트 정보"
-		println "="*50
-		println "프로젝트명: ${project.name}"
-		println "버전: ${project.version}"
-		println "설명: ${project.description}"
-		println "Java 버전: ${java.toolchain.languageVersion.get()}"
-		println "Spring Boot 버전: ${dependencyManagement.importedProperties['spring-boot.version']}"
-		println "="*50
-	}
-}
-
-// 의존성 정보 출력 태스크 (어떤 라이브러리가 사용되는지 확인)
-tasks.register('showDependencies') {
-	doLast {
-		println "📦 주요 의존성 정보:"
-		println "- Spring Boot Web (REST API 개발)"
-		println "- Spring Boot JPA (데이터베이스 연동)"
-		println "- Spring Boot Security (보안)"
-		println "- OAuth2 Client (GitHub 로그인)"
-		println "- JWT (토큰 인증)"
-		println "- Redis (캐싱)"
-		println "- PostgreSQL (데이터베이스)"
-		println "- H2 (개발용 DB)"
-		println "- Lombok (코드 자동 생성)"
-		println "- SpringDoc (API 문서)"
-		println "- Jsoup (웹 크롤링)"
-	}
-}
-
-/*
- * ================================================================
- * 📚 학습 기록
- * ================================================================
-
- * Gradle은 프로젝트를 빌드하고 의존성을 관리하는 설정 파일
- * Gradle은 Java 프로젝트를 컴파일하고 테스트하고 배포하는 빌드 도구
- * Gradle은 DSL, 도메인 설정 언어, 특정 목적을 위해 설계된 작고 제한된 언어 (일반 고급 프로그래밍 언어는 범용성이 큼)
- * (DSL 언어 예 : HTML, SQL)
-
- * 🎯 Gradle 명령어 (윈도우 터미널에서 실행. 리눅스에선 앞에 ./를 부여야함):
-	gradlew build          # 프로젝트 빌드 (컴파일 + 테스트)
-	gradlew bootRun        # 스프링 부트 애플리케이션 실행
-	gradlew test           # 테스트 실행
-	gradlew clean          # 빌드 결과물 삭제
-	gradlew projectInfo    # 프로젝트 정보 출력 (우리가 만든 명령어)
-	gradlew showDependencies  # 의존성 정보 출력 (우리가 만든 명령어)
- *
- * 🔍 의존성 타입 설명:
- *
- * implementation    # 컴파일 + 런타임에 필요 (가장 일반적)
- * compileOnly       # 컴파일 시에만 필요 (Lombok 등)
- * runtimeOnly       # 런타임에만 필요 (DB 드라이버 등)
- * testImplementation # 테스트 시에만 필요
- * developmentOnly   # 개발 시에만 필요 (DevTools 등)
- * annotationProcessor # 어노테이션 처리 (Lombok 등)
- *
- * 🎨 주요 Spring Boot Starter 설명:
- *
- * spring-boot-starter-web       # 웹 애플리케이션 (Tomcat + Spring MVC)
- * spring-boot-starter-data-jpa  # JPA (Hibernate + Spring Data JPA)
- * spring-boot-starter-security  # Spring Security
- * spring-boot-starter-test      # 테스트 도구들 (JUnit, Mockito 등)
- *
- * 🏗️ 빌드 파일 구조:
- *
- * plugins { }          # 사용할 플러그인들
- * repositories { }     # 라이브러리 저장소
- * dependencies { }     # 사용할 라이브러리들
- * tasks { }           # 사용자 정의 작업들
- *
- * 	프로젝트/
-	├── build.gradle        # 빌드 스크립트 (Gradle 언어)
-	├── settings.gradle     # 프로젝트 설정
-	├── gradle.properties   # 속성 파일
-	├── gradlew            # Gradle Wrapper (Unix)
-	├── gradlew.bat        # Gradle Wrapper (Windows)
-	└── gradle/
-		└── wrapper/
-			├── gradle-wrapper.jar
-			└── gradle-wrapper.properties
-
-
-
-	#반복문 문법
-	리스트.each { 요소 ->
-    // 요소를 사용한 작업
-}
-
-	#task 문법
-	task hello {
-    doLast {
-        println 'Hello, Gradle!'
-    }
-}
-
-task hello: 태스크 이름은 hello
-doLast {}: 이 태스크가 실행될 때 마지막으로 실행될 블록
-출력: gradle hello 입력 시 콘솔에 "Hello, Gradle!" 출력
-
-*/
